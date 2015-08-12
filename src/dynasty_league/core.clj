@@ -5,7 +5,13 @@
   [& args]
   (println "Hello, World!"))
 
-(def my-map {:a 1 :b 2 :c 3})
+(def all-players {:a 1 :b 2 :c 3})
 
-(defn mytest [a]
-    (def my-map (dissoc my-map a)))
+(defn remove-players
+  "Removes players from the original list of players." [players]
+  (apply dissoc all-players players))
+
+(defn calculate-best-player
+  "Chooses the most optimal player to be drafted from the remaining player.
+  Use the remove-players as the argument for this function."
+  [players])
