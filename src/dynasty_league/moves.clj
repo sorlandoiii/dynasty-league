@@ -8,5 +8,5 @@
 
 (defn apply-moves-made
   "Uses moves-made to create a current pool of players." []
-  (let [move moves-made]
-    (apply dissoc core/all-athletes move)))
+  (remove #(some (fn [move] (and (= (:name %) (first move))
+                                 (= (:team %) (second move)))) moves-made) core/all-athletes))

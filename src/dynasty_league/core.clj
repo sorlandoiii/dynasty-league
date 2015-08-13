@@ -3,16 +3,6 @@
 
 (declare all-athletes)
 
-;; Remove later.
-(defn select-random-player
-  "Selects random player." []
-  (rand-nth (keys apply-moves-made)))
-
-(defn calculate-best-player
-  "Chooses the most optimal player to be drafted from the remaining player.
-  Use the remove-players as the argument for this function." []
-  )
-
 (defn load-spreadsheet
   "Loads excel spreadsheets using docjure."
   [file codec]
@@ -52,6 +42,26 @@
 
 ;;; WRs
 
+(def wr-codec
+  {:A :init-rank :B :name :C :team :D :bye-week :E :sos
+   :F :gp-2014 :G :exp :H :targets :I :recs :J :rec-yds :K :rec-td
+   :L :return-yds :M :return-tds :N :qb-rank})
+
+(defn wr-threshold
+  "Create tiers for wr based on :init-rank."[wrs]
+        (map #(cond (<= (:init-rank %) 11) (assoc % :worth 2)
+                    (<= (:init-rank %) 20) (assoc % :worth 3)
+                    (<= (:init-rank %) 40) (assoc % :worth 4)
+                    (<= (:init-rank %) 60) (assoc % :worth 5)
+                    (<= (:init-rank %) 80) (assoc % :worth 6)
+                    :else (assoc % :worth 7)) wrs))
+
+(defn clean-athlete-data "WR" [file codec]
+  (as-> (load-spreadsheet file codec) $
+        (filter #(not= nil (:bye-week %)) $)
+        (map #(assoc % :position file) $)
+        (wr-threshold $)))
+
 ;;; TEs
 
 ;;; PNs
@@ -63,7 +73,8 @@
 ;;; Extraction of all positions
 
 (def master-athlete-codec
-  {"QB" qb-codec})
+  {"QB" qb-codec
+   "WR" wr-codec})
 
 ;; TODO: Put sequence of maps into one map with [:name :team] as vector key.
 (defn create-all-athlete-data
