@@ -1,3 +1,4 @@
+
 (defproject dynasty-league "0.1.0-SNAPSHOT"
   :description "Fantasy Football app for dynasty league."
   :url "http://example.com/FIXME"
@@ -8,10 +9,9 @@
   :main ^:skip-aot dynasty-league.core
   :repl-options {:init-ns user}
   :target-path "target/%s"
-  :plugins [[cider/cider-nrepl "0.9.1"]]
+  :plugins [[cider/cider-nrepl "0.8.2"]]
   :profiles {:dev {:resource-paths ["dev"]
                    :dependencies [[javax.servlet/servlet-api "2.5"]
                                   [org.clojure/tools.namespace "0.2.10"]
                                   [ring-mock "0.1.5"]]}
              :uberjar {:aot :all}})
-

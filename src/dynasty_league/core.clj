@@ -32,7 +32,7 @@
                     (<= (:init-rank %) 30) (assoc % :worth 4)
                     :else (assoc % :worth 5)) qbs))
 
-(defn clean-athlete-data "QB" [file codec]
+(defmethod clean-athlete-data "QB" [file codec]
   (as-> (load-spreadsheet file codec) $
         (filter #(not= nil (:bye-week %)) $)
         (map #(assoc % :position file) $)
@@ -56,7 +56,7 @@
                     (<= (:init-rank %) 80) (assoc % :worth 6)
                     :else (assoc % :worth 7)) wrs))
 
-(defn clean-athlete-data "WR" [file codec]
+(defmethod clean-athlete-data "WR" [file codec]
   (as-> (load-spreadsheet file codec) $
         (filter #(not= nil (:bye-week %)) $)
         (map #(assoc % :position file) $)
