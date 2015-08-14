@@ -40,6 +40,25 @@
 
 ;;; RBs
 
+(def rb-codec
+  {:A :init-rank :B :name :C :team :D :bye-week :E :sos :F :gp-2014
+   :G :exp :H :atts :I :rush-yds :J :avg-rush :K :rush-td :L :fumbs
+   :M :targets :N :recs :O :rec-yds :P :rec-tds :Q :return-yds :R :return-tds})
+
+(defn rb-threshold
+  "Create tiers for rb based on :init-rank."[rbs]
+        (map #(cond (<= (:init-rank %) 5) (assoc % :worth 1)
+                    (<= (:init-rank %) 10) (assoc % :worth 2)
+                    (<= (:init-rank %) 20) (assoc % :worth 4)
+                    (<= (:init-rank %) 30) (assoc % :worth 5)
+                    :else (assoc % :worth 6)) rbs))
+
+(defmethod clean-athlete-data "RB" [file codec]
+  (as-> (load-spreadsheet file codec) $
+        (filter #(not= nil (:bye-week %)) $)
+        (map #(assoc % :position file) $)
+        (rb-threshold $)))
+
 ;;; WRs
 
 (def wr-codec
@@ -74,6 +93,7 @@
 
 (def master-athlete-codec
   {"QB" qb-codec
+   "RB" rb-codec
    "WR" wr-codec})
 
 ;; TODO: Put sequence of maps into one map with [:name :team] as vector key.
