@@ -1,6 +1,33 @@
 (ns dynasty-league.config)
 
-(def adps
+;;; TODO: Put league settings into map here.
+;;; Settings
+
+(def dynasty-settings
+  {:general-settings {:teams 10
+                      :roster-spots 25
+                      :ir-spots 6
+                      :taxi-spots 10
+                      :salaries? true
+                      :salary-cap 10000
+                      :contracts? true
+                      :num-qb 2
+                      :num-rb #{1 2 3}
+                      :num-wr #{1 2 3 4 5}
+                      :num-te #{1 2 3 4}
+                      :num-pk #{1 2}
+                      :num-pn #{1 2}
+                      :num-df #{1 2}}
+   :qb-scoring {}
+   :rb-scoring {}
+   :wr-scoring {}
+   :te-scoring {}
+   :pk-scoring {}
+   :pn-scoring {}
+   :df-scoring {}})
+
+;;; ADPs
+(def dynasty-adps
   {"DEZ BRYANT" 2.33
    "ODELL BECKHAM JR" 3.0
    "ROB GRONKOWSKI" 4.33
