@@ -35,7 +35,13 @@
   (remove #(some (fn [move] (and (= (trimmer (:name %)) (first move))
                                  (= (trimmer (:name %)) (second move)))) moves-made) all-athletes))
 
+;;; All athletes
 
+(defn gen-athlete-ratings
+  "Creates an overall value for each athlete. These ratings are the main
+  criteria for choosing the best athlete during the draft."
+  [athletes]
+  )
 
 (defn calculate-best-player
   "Chooses the most optimal player to be drafted from the remaining player.

@@ -18,13 +18,47 @@
                       :num-pk #{1 2}
                       :num-pn #{1 2}
                       :num-df #{1 2}}
-   :qb-scoring {}
-   :rb-scoring {}
-   :wr-scoring {}
-   :te-scoring {}
-   :pk-scoring {}
-   :pn-scoring {}
-   :df-scoring {}})
+   :qb-scoring {:pass-td 3
+                :pass-yd 20
+                :int -1
+                :2pt 2
+                :rush-td 3
+                :rush-yd 10
+                :fumb -1}
+   :rb-scoring {:rush-yd 10
+                :rush-td 3
+                :reception 1
+                :rec-yd 10
+                :rec-td 3
+                :fumb -1
+                :2pt 2}
+   :wr-scoring {:rush-yd 10
+                :rush-td 3
+                :reception 1
+                :rec-yd 10
+                :rec-td 3
+                :fumb -1
+                :2pt 2}
+   :te-scoring {:rush-yd 10
+                :rush-td 3
+                :reception 1
+                :rec-yd 10
+                :rec-td 3
+                :fumb -1
+                :2pt 2}
+   :pk-scoring {:30-39 3
+                :40-49 4
+                :50-plus 5
+                :xp-made 1
+                :xp-missed -3}
+   :pn-scoring {:yds 50
+                :inside-20 2}
+   :df-scoring {:int 2
+                :fumb 2
+                :kick-ret-td 3
+                :punt-ret-td 3
+                :turnover-td 3
+                :blocked-punt 2}})
 
 ;;; ADPs
 (def dynasty-adps
