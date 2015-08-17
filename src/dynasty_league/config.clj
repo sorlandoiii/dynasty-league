@@ -49,6 +49,7 @@
    :pk-scoring {:30-39 3
                 :40-49 4
                 :50-plus 5
+                :fg-made 3
                 :xp-made 1
                 :xp-missed -3}
    :pn-scoring {:yds 50
