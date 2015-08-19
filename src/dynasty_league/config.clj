@@ -61,7 +61,151 @@
                 :turnover-td 3
                 :blocked-punt 2}})
 
+(def twelve-ppr-settings
+  {:general-settings {:teams 12
+                      :roster-spots 16
+                      :ir-spots 0
+                      :taxi-spots 0
+                      :salaries? false
+                      :salary-cap 0
+                      :contracts? false
+                      :num-qb 1
+                      :num-rb 2
+                      :num-wr 2
+                      :num-te 1
+                      :num-flex 1
+                      :num-pk 1
+                      :num-pn 0
+                      :num-df 1}
+   :qb-scoring {:pass-td 4
+                :pass-yd 25
+                :int -1
+                :2pt 2
+                :rush-td 6
+                :rush-yd 10
+                :fumb -2}
+   :rb-scoring {:rush-yd 10
+                :rush-td 6
+                :reception 1
+                :rec-yd 10
+                :rec-td 6
+                :fumb -2
+                :2pt 2}
+   :wr-scoring {:rush-yd 10
+                :rush-td 6
+                :reception 1
+                :rec-yd 10
+                :rec-td 6
+                :fumb -2
+                :2pt 2}
+   :te-scoring {:rush-yd 10
+                :rush-td 6
+                :reception 1
+                :rec-yd 10
+                :rec-td 6
+                :fumb -2
+                :2pt 2}
+   :pk-scoring {:30-39 3
+                :40-49 4
+                :50-plus 5
+                :fg-made 3
+                :xp-made 1
+                :xp-missed 0}
+   :pn-scoring {:yds 0
+                :inside-20 0}
+   :df-scoring {:sack 1
+                :int 2
+                :fumb 2
+                :safety 2
+                :block-fg 2
+                :kick-ret-td 6
+                :punt-ret-td 6
+                :turnover-td 6
+                :blocked-punt 2
+                :pts-allowed-0 10
+                :pts-allowed-1-6 7
+                :pts-allowed-7-13 4
+                :pts-allowed-14-20 1
+                :pts-allowed-21-27 0
+                :pts-allowed-28-34 -1
+                :pts-allowed-35 -4}})
+
+(def tppr-draft-per-100
+  {:qb 12
+   :rb 35
+   :wr 41
+   :te 10
+   :pk 1
+   :def 1})
+
 ;;; ADPs
+
+(def tppr-adps
+  {"Le'Veon Bell" 1 "Adrian Peterson" 2 "Antonio Brown" 3 "Jamaal Charles" 4
+   "Eddie Lacy" 5 "Dez Bryant" 6 "Odell Beckham Jr." 7 "Julio Jones" 8
+   "Marshawn Lynch" 9 "Demaryius Thomas" 10 "Rob Gronkowski" 11 "Matt Forte" 12
+   "C.J. Anderson" 13 "Calvin Johnson" 14 "LeSean McCoy" 15 "Andrew Luck" 16
+   "Jordy Nelson" 17 "DeMarco Murray" 18 "Jeremy Hill" 19 "A.J. Green" 20
+   "Randall Cobb" 21 "Aaron Rodgers" 22 "Justin Forsett" 23 "Alshon Jeffery" 24
+   "Mike Evans" 25 "Ty Hilton" 26 "Jimmy Graham" 27 "Frank Gore" 28
+   "Lamar Miller" 29 "DeAndre Hopkins" 30 "Melvin Gordon" 31 "Brandin Cooks" 32
+   "Emmanuel Sanders" 33 "Mark Ingram" 34 "Kelvin Benjamin" 35
+   "Jordan Matthews" 36 "Alfred Morris" 37 "Latavius Murray" 38
+   "Andre Ellington" 39 "Carlos Hyde" 40 "C.J. Spiller" 41 "Julian Edelman" 42
+   "Todd Gurley" 43 "Joseph Randle" 44 "Andre Johnson" 45 "Amari Cooper" 46
+   "Jonathan Stewart" 47 "Golden Tate" 48 "Keenan Allen" 49 "T.J. Yeldon" 50
+   "Ameer Abdullah" 51 "Travis Kelce" 52 "Peyton Manning" 53 "Sammy Watkins" 54
+   "Arian Foster" 55 "Russell Wilson" 56 "Jarvis Landry" 57 "Giovani Bernard" 58
+   "Martavis Bryant" 59 "Brandon Marshall" 60 "Ben Roethlisberger" 61
+   "Drew Brees" 62 "DeSean Jackson" 63 "Jeremy Maclin" 64 "Greg Olsen" 65
+   "Allen Robinson" 66 "Joique Bell" 67 "Martellus Bennett" 68 "Doug Martin" 69
+   "Rashad Jennings" 70 "Vincent Jackson" 71 "Shane Vereen" 72 "Tevin Coleman" 73
+   "Cam Newton" 74 "Matt Ryan" 75 "LeGarrette Blount" 76 "Mike Wallace" 77
+   "Nelson Agholor" 78 "Roddy White" 79 "Christopher Ivory" 80 "Isaiah Crowell" 81
+   "Charles Johnson" 82 "Julius Thomas" 83 "Tre Mason" 84 "Victor Cruz" 85
+   "Tony Romo" 86 "Zach Ertz" 87 "Matthew Stafford" 88 "Kevin White" 89 "Tom Brady" 90
+   "Brandon LaFell" 91 "Ryan Tannehill" 92 "Devonta Freeman" 93 "Jordan Cameron" 94
+   "Larry Fitzgerald" 95 "Bishop Sankey" 96 "Eli Manning" 97 "Eric Decker" 98
+   "Duke Johnson" 99 "Michael Floyd" 100 "Davante Adams" 101 "John Brown" 102
+   "Steve Smith" 103 "Ryan Mathews" 104 "Anquan Boldin" 105 "Jason Witten" 106
+   "Torrey Smith" 107 "Pierre Garcon" 108 "Seattle Seahawks" 109 "Marques Colston" 110
+   "Philip Rivers" 111 "Breshad Perriman" 112 "Alfred Blue" 113 "Danny Woodhead" 114
+   "Kendall Wright" 115 "Delanie Walker" 116 "Darren McFadden" 117 "Reggie Bush" 118
+   "Terrance Williams" 119 "Devante Parker" 120 "Buffalo Bills" 121 "David Johnson" 122
+   "Darren Sproles" 123 "Knile Davis" 124 "Charles Sims" 125 "Houston Texans" 126
+   "St. Louis Rams" 127 "Sam Bradford" 128 "Tyler Eifert" 129 "David Cobb" 130
+   "Teddy Bridgewater" 131 "Colin Kaepernick" 132 "Owen Daniels" 133 "Kenny Stills" 134
+   "Coby Fleener" 135 "Andre Williams" 136 "Dwayne Allen" 137 "Percy Harvin" 138
+   "Michael Crabtree" 139 "Joe Flacco" 140 "Austin Seferian-Jenkins" 141
+   "Antonio Gates" 142 "Steve Johnson" 143 "Roy Helu" 144 "Eddie Royal" 145
+   "DeAngelo Williams" 146 "Kyle Rudolph" 147 "Josh Hill" 148 "Markus Wheaton" 149
+   "New York Jets" 150 "Montee Ball" 152 "Arizona Cardinals" 153 "Brian Quick" 154
+   "Devin Funchess" 155 "Carson Palmer" 156 "Jameis Winston" 157 "Dorial Green-Beckham" 158
+   "Rueben Randle" 159 "Cody Latimer" 160 "Miami Dolphins" 161 "Jay Cutler" 162 "Jay Ajayi" 163
+   "Eric Ebron" 164 "Jordan Reed" 165 "Vernon Davis" 166 "Marvin Jones" 167 "Andy Dalton" 168
+   "Doug Baldwin" 169 "Phillip Dorsett" 170 "Ladarius Green" 171 "Jonas Gray" 172
+   "Fred Jackson" 173 "Denver Broncos" 174 "Larry Donnell" 175 "Marcus Mariota" 177
+   "Chris Polk" 178 "Donte Moncrief" 179 "James White" 180 "Jerick McKinnon" 181
+   "Matt Jones" 182 "Derek Carr" 183 "Green Bay Packers" 184 "Dwayne Bowe" 185
+   "Cameron Artis-Payne" 186 "Carolina Panthers" 187 "Jared Cook" 188
+   "Ronnie Hillman" 191 "Denard Robinson" 193 "Daniel Herron" 194 "Blake Bortles" 198
+   "Kenny Britt" 199 "Lorenzo Taliaferro" 200 "Charles Clay" 201 "Branden Oliver" 202
+   "Philadelphia Eagles" 203 "Heath Miller" 206 "Marqise Lee" 207 "Mychal Rivera" 209
+   "Tavon Austin" 210 "James Starks" 211 "Terrance West" 212 "Cecil Shorts" 213
+   "Javorius Allen" 214 "Alex Smith" 216 "Baltimore Ravens" 217 "Jaelen Strong" 218
+   "Theo Riddick" 219 "Maxx Williams" 220 "Robert Griffin III" 222
+   "Kansas City Chiefs" 223 "Tyler Lockett" 224 "New England Patriots" 225
+   "Nick Foles" 228 "Stedman Bailey" 230 "Malcom Floyd" 232 "Lance Dunbar" 233
+   "Richard Rodgers" 234 "Stevan Ridley" 237 "Cincinnati Bengals" 238
+   "Cole Beasley" 239 "Jace Amaro" 246 "Allen Hurns" 255 "Brian Hartline" 259
+   "Khiry Robinson" 260 "Nick Toon" 261 "Brandon Coleman" 262 "Josh Robinson" 267
+   "Virgil Green" 270 "Justin Hunter" 272 "Toby Gerhart" 273 "Marquess Wilson" 275
+   "Greg Jennings" 276 "Robert Woods" 278 "Harry Douglas" 282 "Rob Housler" 283
+   "Travaris Cadet" 284 "Clive Walford" 292 "Kamar Aiken" 294 "Benjamin Watson" 297
+   "De'Anthony Thomas" 300 "Andrew Hawkins" 301 "San Francisco 49ers" 306
+   "Danny Amendola" 308 "Jacob Tamme" 312 "Benny Cunningham" 315 "Jarius Wright" 326
+   "Damien Williams" 334 "Bilal Powell" 335 "Taylor Gabriel" 351})
+
 (def dynasty-adps
   {"DEZ BRYANT" 2.33
    "ODELL BECKHAM JR" 3.0
