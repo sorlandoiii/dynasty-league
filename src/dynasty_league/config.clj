@@ -11,13 +11,12 @@
                       :salaries? true
                       :salary-cap 10000
                       :contracts? true
-                      :num-qb 2
-                      :num-rb #{1 2 3}
-                      :num-wr #{1 2 3 4 5}
-                      :num-te #{1 2 3 4}
-                      :num-pk #{1 2}
-                      :num-pn #{1 2}
-                      :num-df #{1 2}}
+                      :start-qb 2
+                      :start-rb #{1 2 3}
+                      :start-wr #{1 2 3 4 5}
+                      :start-te #{1 2 3 4}
+                      :start-pk #{1 2}
+                      :start-df #{1 2}}
    :qb-scoring {:pass-td 3
                 :pass-yd 20
                 :int -1
@@ -69,14 +68,13 @@
                       :salaries? false
                       :salary-cap 0
                       :contracts? false
-                      :num-qb 1
-                      :num-rb 2
-                      :num-wr 2
-                      :num-te 1
-                      :num-flex 1
-                      :num-pk 1
-                      :num-pn 0
-                      :num-df 1}
+                      :start-qb 1
+                      :start-rb 2
+                      :start-wr 2
+                      :start-te 1
+                      :start-flex 1
+                      :start-k 1
+                      :start-df 1}
    :qb-scoring {:pass-td 4
                 :pass-yd 25
                 :int -1

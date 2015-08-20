@@ -259,7 +259,7 @@
    :G :def-td :H :pts-allowed :I :payds-game :J :ruyds-game :K :safeties
    :L :kr-td :M :proj-pts})
 
-(defmethod clean-athlete-data "DEF" [file codec]
+(defmethod clean-athlete-data "DF" [file codec]
   (as-> ["FantasyPros_Fantasy_Football_Rankings_" file] $
         (clojure.string/join $)
         (load-spreadsheet $ codec)

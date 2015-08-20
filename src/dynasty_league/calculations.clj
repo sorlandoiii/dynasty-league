@@ -28,56 +28,59 @@
   (if (= String (type val)) (clojure.string/trim val) val))
 
 ;;; Application of draft moves to baseline athletes.
-;;; TODO: Automate - my-team, moves-made, picks-til-my-next-pick
+;;; TODO: Automate - my-team and moves-made
 
-;; Format: {:position ["fname lname" "fname lname" ...]}
 (def my-team
-  {:qb []
-   :rb []
-   :wr []
-   :te []
-   :k []
-   :def []})
+  {:qb 0
+   :rb 0
+   :wr 0
+   :te 0
+   :flex 0
+   :k 0
+   :df 0})
 
-;; Format: ["Joe Flacco" "BAL"]
+;; Format: ["joe flacco" "dez bryant" ....]
 (def moves-made
   [])
 
-(def draft-spot 1)
+(def draft-spot 8)
 
-(def picks-til-my-next-pick 1)
+(defn gen-next-draft-spot
+  "Determines what number pick will be next for me in the draft based on
+  round (r), number of teams in the draft (N), and starting draft spot (n).
 
-;; (defn next-avail-pick
-;;   "Determines how many draft picks until your next available draft pick. This
-;;   is currently based off a 12 man draft." []
-;;   (case draft-spot
-;;     1 (if (< (count moves-made) draft-spot) draft-spot
-;;     2
-;;     3
-;;     4
-;;     5
-;;     6
-;;     7
-;;     8
-;;     9
-;;     10
-;;     11
-;;     12))
+  Formula: when r is odd: (r - 1)N + n
+           when r is even: rN - n + 1 " []
+  (let [teams ((config/twelve-ppr-settings :general-settings) :teams)
+        r (int (inc (/ (count moves-made) teams)))] ; inc r to make it the current round.
+  (if (even? r)
+    (+ (* r teams) draft-spot)
+    (+ (- (* (inc r) teams) draft-spot) 1))))
+
+;; ;; More precise, but usually not necessary.
+;; (defn apply-moves-made
+;;   "Uses moves-made to create a current pool of athletes." [athletes]
+;;   (remove #(some (fn [move] (and (= (trimmer (:name %)) (first move))
+;;                                  (= (trimmer (:team %)) (second move)))) moves-made) athletes))
 
 (defn apply-moves-made
   "Uses moves-made to create a current pool of athletes." [athletes]
-  (remove #(some (fn [move] (and (= (trimmer (:name %)) (first move))
-                                 (= (trimmer (:team %)) (second move)))) moves-made) athletes))
+  (remove #(some (fn [move] (= (.toLowerCase (trimmer (:name %))) move)) moves-made) athletes))
 
 ;;; Final rankings of athletes and best player selection.
 
 (defn modify-vor
   "Modifies vor values based on how many of each position is already on my team."
   [athletes]
-  (let [stngs (config/twelve-ppr-settings :general-settings)]
-  ;; If # of position already on my team is less than how many I need to start,
-  ;; values stay the same. Else, values drop 20% per # of position on my team.
-    ))
+  (let [stngs (config/twelve-ppr-settings :general-settings)
+        ath-by-pos (group-by :position athletes)]
+    (flatten (for [[pos num] my-team]
+               (if (> (stngs (keyword (str "start-" (name pos)))) (my-team pos))
+                 ;; # on my team ok, so return unmodified athletes at the position.
+                 (get ath-by-pos (.toUpperCase (name pos)))
+                 ;; Over the starting limit, so modify vor and return athletes at positon.
+                 (map #(assoc % :vor (* (:vor %) (- 1 (* 0.2 (my-team pos)))))
+                      (get ath-by-pos (.toUpperCase (name pos)))))))))
 
 (defn rank-by-vor
   "Ranks all athletes by :vor value." [athletes]
@@ -85,13 +88,15 @@
 
 (defn adp-vs-pos
   "" [athletes]
-    (if (pos? (- (:adp (first athletes)) (count moves-made)))
+  (let [top-athlete (first athletes)
+        moves (count moves-made)]
+    (if (pos? (- (:adp top-athlete) moves))
       ;; If positive, then we can possibly wait to draft based on how many moves
-      ;; until our next pick. NOTE: next-avail-pick is how long until your FOLLOWING pick.
-      (if (<= (+ (count moves-made) picks-til-my-next-pick) (:adp (first athletes)))
+      ;; until our next pick.
+      (if (<= (- (gen-next-draft-spot) moves) (:adp top-athlete))
         ;; We can wait, so look for next best athlete (unless it is last athlete).
-        (if (= (count athletes) 1) (first athletes) (recur (rest athletes)))
+        (if (= (count athletes) 1) top-athlete (recur (rest athletes)))
         ;; We can't wait, so return the athlete.
-        (first athletes))
+        top-athlete)
       ;; If negative, then this player should have been drafted already. TAKE HIM!!
-      (first athletes)))
+      top-athlete)))
