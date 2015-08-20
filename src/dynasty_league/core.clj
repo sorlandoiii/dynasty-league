@@ -8,7 +8,7 @@
     (as-> (calc/apply-moves-made calc/all-athletes) $
           (calc/modify-vor $)
           (calc/rank-by-vor $)
-          (calc/adp-vs-pos $))))
+          (calc/adp-vs-spot $))))
 
 (defn full-process2
   "Runs the process e2e and produces the best player at the end." []

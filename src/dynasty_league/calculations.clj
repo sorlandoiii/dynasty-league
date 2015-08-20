@@ -18,7 +18,7 @@
   "Extract all athlete files and combine into one datastructure. Takes
   in a map with filename-codec key-value pairs."
   [file-codec]
-  (def all-athletes
+  (defonce all-athletes
     (flatten (for [[file codec] file-codec]
                (extract/clean-athlete-data file codec)))))
 
@@ -57,12 +57,6 @@
     (+ (* r teams) draft-spot)
     (+ (- (* (inc r) teams) draft-spot) 1))))
 
-;; ;; More precise, but usually not necessary.
-;; (defn apply-moves-made
-;;   "Uses moves-made to create a current pool of athletes." [athletes]
-;;   (remove #(some (fn [move] (and (= (trimmer (:name %)) (first move))
-;;                                  (= (trimmer (:team %)) (second move)))) moves-made) athletes))
-
 (defn apply-moves-made
   "Uses moves-made to create a current pool of athletes." [athletes]
   (remove #(some (fn [move] (= (.toLowerCase (trimmer (:name %))) move)) moves-made) athletes))
@@ -86,8 +80,10 @@
   "Ranks all athletes by :vor value." [athletes]
   (reverse (sort-by :vor athletes)))
 
-(defn adp-vs-pos
-  "" [athletes]
+(defn adp-vs-spot
+  "Calculates whether or not to take the best athlete available. If he will likely
+  still be around for my next pick, I want to wait to take him and instead get the
+  second best athlete available." [athletes]
   (let [top-athlete (first athletes)
         moves (count moves-made)]
     (if (pos? (- (:adp top-athlete) moves))
