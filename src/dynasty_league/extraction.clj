@@ -6,11 +6,10 @@
 
 ;;; Attach adp to all incoming athletes
 
-;; TODO: Make generic and replace in extraction functions.
-(defn add-ppr-adp
+(defn add-adp
   "Inserts adp from ppr config table to each athlete, and if no adp then a value
   of 0 is assigned for adp." [athletes]
-  (map #(assoc % :adp (if-let [adp (get data/tppr-adps (:name %))] adp 300)) athletes))
+  (map #(assoc % :adp (if-let [adp (get (@config/cur-settings :adps) (:name %))] adp 300)) athletes))
 
 ;;; File type load functions
 
@@ -35,7 +34,7 @@
         (clojure.string/join $)
         (load-spreadsheet $ codec)
         (map #(assoc % :position file) $)
-        (add-ppr-adp $)
+        (add-adp $)
         (util/convert-vals $ #{:pass-yds :pass-tds :ints :rush-yds :rush-tds :fumbs})))
 
 (defmethod clean-athlete-data "RB" [file codec]
@@ -43,7 +42,7 @@
         (clojure.string/join $)
         (load-spreadsheet $ codec)
         (map #(assoc % :position file) $)
-        (add-ppr-adp $)
+        (add-adp $)
         (util/convert-vals $ #{:rush-yds :rush-tds :fumbs :rec-yds :rec-tds :recs})))
 
 (defmethod clean-athlete-data "WR" [file codec]
@@ -51,7 +50,7 @@
         (clojure.string/join $)
         (load-spreadsheet $ codec)
         (map #(assoc % :position file) $)
-        (add-ppr-adp $)
+        (add-adp $)
         (util/convert-vals $ #{:rush-yds :rush-tds :fumbs :rec-yds :rec-tds :recs})))
 
 (defmethod clean-athlete-data "TE" [file codec]
@@ -59,7 +58,7 @@
         (clojure.string/join $)
         (load-spreadsheet $ codec)
         (map #(assoc % :position file) $)
-        (add-ppr-adp $)
+        (add-adp $)
         (util/convert-vals $ #{:fumbs :rec-yds :rec-tds :recs})))
 
 (defmethod clean-athlete-data "K" [file codec]
@@ -67,7 +66,7 @@
         (clojure.string/join $)
         (load-spreadsheet $ codec)
         (map #(assoc % :position file) $)
-        (add-ppr-adp $)
+        (add-adp $)
         (util/convert-vals $ #{:fgm :fga :xpm})))
 
 (defmethod clean-athlete-data "DF" [file codec]

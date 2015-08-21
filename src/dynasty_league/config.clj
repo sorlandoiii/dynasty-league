@@ -1,4 +1,5 @@
-(ns dynasty-league.config)
+(ns dynasty-league.config
+  (:require [dynasty-league.data :as data]))
 
 ;;; Draft specific starting configs
 
@@ -108,7 +109,8 @@
                    :wr 41
                    :te 10
                    :pk 1
-                   :def 1}})
+                   :def 1}
+   :adps data/dynasty-adps})
 
 (def twelve-ppr-settings
   {:general-settings {:teams 12
@@ -182,4 +184,5 @@
                    :wr 41
                    :te 10
                    :pk 1
-                   :def 1}})
+                   :def 1}
+   :adps data/tppr-adps})

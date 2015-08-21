@@ -85,6 +85,7 @@
    "Danny Amendola" 308 "Jacob Tamme" 312 "Benny Cunningham" 315 "Jarius Wright" 326
    "Damien Williams" 334 "Bilal Powell" 335 "Taylor Gabriel" 351})
 
+;; TODO: Make names same format as above
 (def dynasty-adps
   {"DEZ BRYANT" 2.33
    "ODELL BECKHAM JR" 3.0
