@@ -43,6 +43,9 @@
 (def moves-made
   [])
 
+(def ignored
+  ["kelvin benjamin"])
+
 (def draft-spot 8)
 
 (defn gen-next-draft-spot
@@ -61,12 +64,15 @@
   "Uses moves-made to create a current pool of athletes." [athletes]
   (remove #(some (fn [move] (= (.toLowerCase (trimmer (:name %))) move)) moves-made) athletes))
 
-;;; Final rankings of athletes and best player selection.
+(defn ignore-athletes
+  "Removes athletes from the overall pool of athletes and does not
+  effect moves-made." [athletes]
+  (remove #(some (fn [ath] (= (.toLowerCase (trimmer (:name %))) ath)) ignored) athletes))
 
 (defn modify-vor
   "Modifies vor values based on how many of each position is already on my team."
   [athletes]
-  (let [stngs (config/twelve-ppr-settings :general-settings)
+  (let [stngs (@config/cur-settings :general-settings)
         ath-by-pos (group-by :position athletes)]
     (flatten (for [[pos num] my-team]
                (if (> (stngs (keyword (str "start-" (name pos)))) (my-team pos))

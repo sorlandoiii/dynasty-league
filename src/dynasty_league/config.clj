@@ -1,7 +1,8 @@
 (ns dynasty-league.config)
 
-;;; TODO: Put league settings into map here.
 ;;; Settings
+
+(def cur-settings (atom nil))
 
 (def dynasty-settings
   {:general-settings {:teams 10

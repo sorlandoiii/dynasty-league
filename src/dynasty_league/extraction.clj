@@ -39,22 +39,10 @@
   {:A :name :B :team :E :pass-yds :F :pass-tds :G :ints
    :I :rush-yds :J :rush-tds :K :fumbs})
 
-(defn gen-dynasty-qb-proj-pts
+(defn gen-qb-proj-pts
   "Generates projected fantasy points for all QBs based on league settings."
   [qbs]
-  (let [stngs (config/dynasty-settings :qb-scoring)]
-    (for [qb qbs]
-      (assoc qb :proj-pts (+ (/ (:pass-yds qb) (:pass-yd stngs))
-                             (* (:pass-tds qb) (:pass-td stngs))
-                             (/ (:rush-yds qb) (:rush-yd stngs))
-                             (* (:rush-tds qb) (:rush-td stngs))
-                             (* (:ints qb) (:int stngs))
-                             (* (:fumbs qb) (:fumb stngs)))))))
-
-(defn gen-ppr-qb-proj-pts
-  "Generates projected fantasy points for all QBs based on league settings."
-  [qbs]
-  (let [stngs (config/twelve-ppr-settings :qb-scoring)]
+  (let [stngs (@config/cur-settings :qb-scoring)]
     (for [qb qbs]
       (assoc qb :proj-pts (+ (/ (:pass-yds qb) (:pass-yd stngs))
                              (* (:pass-tds qb) (:pass-td stngs))
@@ -75,7 +63,7 @@
         (map #(assoc % :position file) $)
         (add-ppr-adp $)
         (convert-vals $ #{:pass-yds :pass-tds :ints :rush-yds :rush-tds :fumbs})
-        (gen-ppr-qb-proj-pts $)
+        (gen-qb-proj-pts $)
         (reverse (sort-by :proj-pts $))
         (gen-ppr-qb-vor $)))
 
@@ -88,19 +76,7 @@
 (defn gen-rb-proj-pts
   "Generates projected fantasy points for all RBs based on league settings."
   [rbs]
-  (let [stngs (config/dynasty-settings :rb-scoring)]
-    (for [rb rbs]
-      (assoc rb :proj-pts (+ (/ (:rush-yds rb) (:rush-yd stngs))
-                             (* (:rush-tds rb) (:rush-td stngs))
-                             (* (:recs rb) (:reception stngs))
-                             (/ (:rec-yds rb) (:rec-yd stngs))
-                             (* (:rec-tds rb) (:rec-td stngs))
-                             (* (:fumbs rb) (:fumb stngs)))))))
-
-(defn gen-ppr-rb-proj-pts
-  "Generates projected fantasy points for all RBs based on league settings."
-  [rbs]
-  (let [stngs (config/twelve-ppr-settings :rb-scoring)]
+  (let [stngs (@config/cur-settings :rb-scoring)]
     (for [rb rbs]
       (assoc rb :proj-pts (+ (/ (:rush-yds rb) (:rush-yd stngs))
                              (* (:rush-tds rb) (:rush-td stngs))
@@ -121,7 +97,7 @@
         (map #(assoc % :position file) $)
         (add-ppr-adp $)
         (convert-vals $ #{:rush-yds :rush-tds :fumbs :rec-yds :rec-tds :recs})
-        (gen-ppr-rb-proj-pts $)
+        (gen-rb-proj-pts $)
         (reverse (sort-by :proj-pts $))
         (gen-ppr-rb-vor $)))
 
@@ -134,19 +110,7 @@
 (defn gen-wr-proj-pts
   "Generates projected fantasy points for all WRs based on league settings."
   [wrs]
-  (let [stngs (config/dynasty-settings :wr-scoring)]
-    (for [wr wrs]
-      (assoc wr :proj-pts (+ (/ (:rush-yds wr) (:rush-yd stngs))
-                             (* (:rush-tds wr) (:rush-td stngs))
-                             (* (:recs wr) (:reception stngs))
-                             (/ (:rec-yds wr) (:rec-yd stngs))
-                             (* (:rec-tds wr) (:rec-td stngs))
-                             (* (:fumbs wr) (:fumb stngs)))))))
-
-(defn gen-ppr-wr-proj-pts
-  "Generates projected fantasy points for all WRs based on league settings."
-  [wrs]
-  (let [stngs (config/twelve-ppr-settings :wr-scoring)]
+  (let [stngs (@config/cur-settings :wr-scoring)]
     (for [wr wrs]
       (assoc wr :proj-pts (+ (/ (:rush-yds wr) (:rush-yd stngs))
                              (* (:rush-tds wr) (:rush-td stngs))
@@ -167,7 +131,7 @@
         (map #(assoc % :position file) $)
         (add-ppr-adp $)
         (convert-vals $ #{:rush-yds :rush-tds :fumbs :rec-yds :rec-tds :recs})
-        (gen-ppr-wr-proj-pts $)
+        (gen-wr-proj-pts $)
         (reverse (sort-by :proj-pts $))
         (gen-ppr-wr-vor $)))
 
@@ -179,17 +143,7 @@
 (defn gen-te-proj-pts
   "Generates projected fantasy points for all TEs based on league settings."
   [tes]
-  (let [stngs (config/dynasty-settings :te-scoring)]
-    (for [te tes]
-      (assoc te :proj-pts (+ (* (:recs te) (:reception stngs))
-                             (/ (:rec-yds te) (:rec-yd stngs))
-                             (* (:rec-tds te) (:rec-td stngs))
-                             (* (:fumbs te) (:fumb stngs)))))))
-
-(defn gen-ppr-te-proj-pts
-  "Generates projected fantasy points for all TEs based on league settings."
-  [tes]
-  (let [stngs (config/twelve-ppr-settings :te-scoring)]
+  (let [stngs (@config/cur-settings :te-scoring)]
     (for [te tes]
       (assoc te :proj-pts (+ (* (:recs te) (:reception stngs))
                              (/ (:rec-yds te) (:rec-yd stngs))
@@ -208,7 +162,7 @@
         (map #(assoc % :position file) $)
         (add-ppr-adp $)
         (convert-vals $ #{:fumbs :rec-yds :rec-tds :recs})
-        (gen-ppr-te-proj-pts $)
+        (gen-te-proj-pts $)
         (reverse (sort-by :proj-pts $))
         (gen-ppr-te-vor $)))
 
@@ -221,15 +175,7 @@
 (defn gen-pk-proj-pts
   "Generates projected fantasy points for all PK based on league settings."
   [pks]
-  (let [stngs (config/dynasty-settings :pk-scoring)]
-    (for [pk pks]
-      (assoc pk :proj-pts (+ (* (:fgm pk) (:fg-made stngs))
-                             (* (:xpm pk) (:xp-made stngs)))))))
-
-(defn gen-ppr-pk-proj-pts
-  "Generates projected fantasy points for all PK based on league settings."
-  [pks]
-  (let [stngs (config/twelve-ppr-settings :pk-scoring)]
+  (let [stngs (@config/cur-settings :pk-scoring)]
     (for [pk pks]
       (assoc pk :proj-pts (+ (* (:fgm pk) (:fg-made stngs))
                              (* (:xpm pk) (:xp-made stngs)))))))
@@ -246,7 +192,7 @@
         (map #(assoc % :position file) $)
         (add-ppr-adp $)
         (convert-vals $ #{:fgm :fga :xpm})
-        (gen-ppr-pk-proj-pts $)
+        (gen-pk-proj-pts $)
         (reverse (sort-by :proj-pts $))
         (gen-ppr-pk-vor $)))
 
