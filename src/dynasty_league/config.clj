@@ -3,7 +3,7 @@
 
 ;;; Draft specific starting configs
 
-(def draft-spot 8)
+(def draft-spot 1)
 
 ;;; Codecs
 
@@ -122,9 +122,9 @@
                       :contracts? false
                       :start-qb 1
                       :start-rb 2
-                      :start-wr 2
+                      :start-wr 3
                       :start-te 1
-                      :start-flex 1
+                      :start-flex 0
                       :start-k 1
                       :start-df 1}
    :qb-scoring {:pass-td 4

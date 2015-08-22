@@ -1,7 +1,8 @@
 (ns dynasty-league.core
   (:require [dynasty-league.calculations :refer :all]
             [dynasty-league.config :as config]
-            [dynasty-league.extraction :as extract]))
+            [dynasty-league.extraction :as extract]
+            [clojure.pprint :as pprint]))
 
 ;;; Create pool of athletes
 
@@ -16,7 +17,7 @@
 ;;; League specific functions for picking best player
 
 (defn dynasty-pick
-  "Runs the process e2e and produces the best player at the end." []
+  "Runs the process e2e and produces the best player at the end." [& pos]
   (let [athletes (create-all-athlete-data config/master-athlete-codec)
         _ (config/update-cur-settings config/dynasty-settings)]
     (as-> (apply-moves-made all-athletes) $
@@ -25,10 +26,12 @@
           (gen-all-ratings $)
           (modify-vor $)
           (rank-by-vor $)
-          (adp-vs-spot $))))
+          (if (nil? pos) $ (filter #(= (:position %) (first pos)) $))
+          (adp-vs-spot $)
+          (pprint/pprint $))))
 
 (defn tppr-pick
-  "Runs the process e2e and produces the best player at the end." []
+  "Runs the process e2e and produces the best player at the end." [& pos]
   (let [athletes (create-all-athlete-data config/master-athlete-codec)
         _ (config/update-cur-settings config/twelve-ppr-settings)]
     (as-> (apply-moves-made all-athletes) $
@@ -37,4 +40,6 @@
           (gen-all-ratings $)
           (modify-vor $)
           (rank-by-vor $)
-          (adp-vs-spot $))))
+          (if (nil? pos) $ (filter #(= (:position %) (first pos)) $))
+          (adp-vs-spot $)
+          (pprint/pprint $))))

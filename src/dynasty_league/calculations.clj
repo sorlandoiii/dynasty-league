@@ -164,7 +164,7 @@
                  ;; # on my team ok, so return unmodified athletes at the position.
                  (get ath-by-pos (.toUpperCase (name pos)))
                  ;; Over the starting limit, so modify vor and return athletes at positon.
-                 (map #(assoc % :vor (* (:vor %) (- 1 (* 0.2 (my-team pos)))))
+                 (map #(assoc % :vor (* (:vor %) (- 1 (* 0.3 (my-team pos)))))
                       (get ath-by-pos (.toUpperCase (name pos)))))))))
 
 (defn rank-by-vor
@@ -182,10 +182,10 @@
     (if (pos? (- (:adp top-athlete) moves))
       ;; If positive, then we can possibly wait to draft based on how many moves
       ;; until our next pick.
-      (if (<= (- (util/gen-next-draft-spot) moves) (:adp top-athlete))
+      (if (<= (util/gen-next-draft-spot) (:adp top-athlete))
         ;; We can wait, so look for next best athlete (unless it is last athlete).
-        (if (= (count athletes) 1) top-athlete (recur (rest athletes)))
-        ;; We can't wait, so return the athlete.
-        top-athlete)
+        (if (= (count athletes) 2) top-athlete (recur (rest athletes)))
+        ;; We can't wait, so return the top 3 athletes.
+        (take 3 athletes))
       ;; If negative, then this player should have been drafted already. TAKE HIM!!
-      top-athlete)))
+      (take 3 athletes))))

@@ -15,7 +15,8 @@
   [])
 
 (def ignored
-  ["kelvin benjamin"])
+  ["kelvin benjamin"
+   "arian foster"])
 
 ;;; ADPs
 
