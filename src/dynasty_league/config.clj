@@ -3,7 +3,7 @@
 
 ;;; Draft specific starting configs
 
-(def draft-spot 1)
+(def draft-spot 6)
 
 ;;; Codecs
 
@@ -108,8 +108,8 @@
                    :rb 35
                    :wr 41
                    :te 10
-                   :pk 1
-                   :def 1}
+                   :k 1}
+                   ;:def 1
    :adps data/dynasty-adps})
 
 (def twelve-ppr-settings
@@ -121,7 +121,7 @@
                       :salary-cap 0
                       :contracts? false
                       :start-qb 1
-                      :start-rb 2
+                      :start-rb 3
                       :start-wr 3
                       :start-te 1
                       :start-flex 0
@@ -183,6 +183,6 @@
                    :rb 35
                    :wr 41
                    :te 10
-                   :pk 1
-                   :def 1}
+                   :k 1}
+                   ;:def 1
    :adps data/tppr-adps})

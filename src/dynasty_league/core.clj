@@ -14,16 +14,23 @@
     (flatten (for [[file codec] file-codec]
                (extract/clean-athlete-data file codec)))))
 
+(defn base-aths
+  "Chooses the baseline athlete for each position based on config."
+  [athletes]
+  (into {} (for [[pos val] (@config/cur-settings :draft-per-100)]
+             {pos (nth (reverse (sort-by :proj-pts (get athletes (.toUpperCase (name pos))))) (dec val))})))
+
 ;;; League specific functions for picking best player
 
 (defn dynasty-pick
   "Runs the process e2e and produces the best player at the end." [& pos]
-  (let [athletes (create-all-athlete-data config/master-athlete-codec)
-        _ (config/update-cur-settings config/dynasty-settings)]
+  (let [_ (config/update-cur-settings config/dynasty-settings)
+        athletes (create-all-athlete-data config/master-athlete-codec)
+        bases (base-aths (group-by :position all-athletes))]
     (as-> (apply-moves-made all-athletes) $
           (ignore-athletes $)
           (group-by :position $)
-          (gen-all-ratings $)
+          (gen-all-ratings bases $)
           (modify-vor $)
           (rank-by-vor $)
           (if (nil? pos) $ (filter #(= (:position %) (first pos)) $))
@@ -32,12 +39,13 @@
 
 (defn tppr-pick
   "Runs the process e2e and produces the best player at the end." [& pos]
-  (let [athletes (create-all-athlete-data config/master-athlete-codec)
-        _ (config/update-cur-settings config/twelve-ppr-settings)]
+  (let [_ (config/update-cur-settings config/twelve-ppr-settings)
+        athletes (create-all-athlete-data config/master-athlete-codec)
+        bases (base-aths (group-by :position all-athletes))]
     (as-> (apply-moves-made all-athletes) $
           (ignore-athletes $)
           (group-by :position $)
-          (gen-all-ratings $)
+          (gen-all-ratings bases $)
           (modify-vor $)
           (rank-by-vor $)
           (if (nil? pos) $ (filter #(= (:position %) (first pos)) $))
