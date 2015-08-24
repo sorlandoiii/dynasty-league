@@ -119,7 +119,7 @@
       ;; until our next pick.
       (if (<= (util/gen-next-draft-spot) (:adp top-athlete))
         ;; We can wait, so look for next best athlete (unless it is last athlete).
-        (if (= (count athletes) 2) top-athlete (recur (rest athletes)))
+        (if (= (count athletes) 1) top-athlete (recur (rest athletes)))
         ;; We can't wait, so return the top 3 athletes.
         (take 3 athletes))
       ;; If negative, then this player should have been drafted already. TAKE HIM!!

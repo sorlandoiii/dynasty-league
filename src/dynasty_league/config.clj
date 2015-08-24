@@ -8,7 +8,7 @@
 ;;; Codecs
 
 (def qb-codec
-  {:A :name :B :team :E :pass-yds :F :pass-tds :G :ints
+  {:A :name :B :team :C :pass-atts :D :comps :E :pass-yds :F :pass-tds :G :ints
    :I :rush-yds :J :rush-tds :K :fumbs})
 
 (def rb-codec
@@ -63,54 +63,57 @@
                       :start-k 1
                       :start-df 1}
    :qb-scoring {:pass-td 3
-                :pass-yd 20
-                :int -1
-                :2pt 2
+                :pass-yd 25
+                :comp 0.1
+                :incomp -0.15
+                :int -2
+                :2pt 1
                 :rush-td 3
                 :rush-yd 10
                 :fumb -1}
    :rb-scoring {:rush-yd 10
                 :rush-td 3
-                :reception 1
+                :reception 0.75
                 :rec-yd 10
                 :rec-td 3
                 :fumb -1
-                :2pt 2}
+                :2pt 1}
    :wr-scoring {:rush-yd 10
                 :rush-td 3
-                :reception 1
+                :reception 0.75
                 :rec-yd 10
                 :rec-td 3
                 :fumb -1
-                :2pt 2}
+                :2pt 1}
    :te-scoring {:rush-yd 10
                 :rush-td 3
-                :reception 1
+                :reception 0.75
                 :rec-yd 10
                 :rec-td 3
                 :fumb -1
-                :2pt 2}
+                :2pt 1}
    :pk-scoring {:30-39 3
                 :40-49 4
                 :50-plus 5
                 :fg-made 3
                 :xp-made 1
                 :xp-missed -3}
-   :pn-scoring {:yds 50
-                :inside-20 2}
-   :df-scoring {:int 2
-                :fumb 2
+   :df-scoring {:int 1
+                :fumb 1
                 :kick-ret-td 3
                 :punt-ret-td 3
                 :turnover-td 3
-                :blocked-punt 2}
+                :blocked-punt 2
+                :blocked-fg 2
+                :sack 1
+                :safety 5}
    :draft-per-100 {:qb 12
                    :rb 35
                    :wr 41
                    :te 10
                    :k 1}
                    ;:def 1
-   :adps data/dynasty-adps})
+   :adps data/tppr-adps})
 
 (def twelve-ppr-settings
   {:general-settings {:teams 12
@@ -129,6 +132,8 @@
                       :start-df 1}
    :qb-scoring {:pass-td 4
                 :pass-yd 25
+                :comp 0
+                :incomp 0
                 :int -1
                 :2pt 2
                 :rush-td 6
@@ -167,7 +172,7 @@
                 :int 2
                 :fumb 2
                 :safety 2
-                :block-fg 2
+                :blocked-fg 2
                 :kick-ret-td 6
                 :punt-ret-td 6
                 :turnover-td 6

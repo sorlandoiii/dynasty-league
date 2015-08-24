@@ -20,6 +20,8 @@
     (for [qb qbs]
       (assoc qb :proj-pts (+ (/ (:pass-yds qb) (:pass-yd stngs))
                              (* (:pass-tds qb) (:pass-td stngs))
+                             (* (:comps qb) (:comp stngs))
+                             (* (- (:pass-atts qb) (:comps qb)) (:incomp stngs))
                              (/ (:rush-yds qb) (:rush-yd stngs))
                              (* (:rush-tds qb) (:rush-td stngs))
                              (* (:ints qb) (:int stngs))
@@ -92,7 +94,8 @@
         (load-spreadsheet $ codec)
         (map #(assoc % :position file) $)
         (add-adp $)
-        (util/convert-vals $ #{:pass-yds :pass-tds :ints :rush-yds :rush-tds :fumbs})
+        (util/convert-vals $ #{:pass-yds :pass-tds :pass-atts :comps
+                               :ints :rush-yds :rush-tds :fumbs})
         (gen-qb-proj-pts $)))
 
 (defmethod clean-athlete-data "RB" [file codec]
