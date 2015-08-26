@@ -111,16 +111,17 @@
 (defn adp-vs-spot
   "Calculates whether or not to take the best athlete available. If he will likely
   still be around for my next pick, I want to wait to take him and instead get the
-  second best athlete available." [athletes]
-  (let [top-athlete (first athletes)
-        moves (count moves-made)]
-    (if (pos? (- (:adp top-athlete) moves))
-      ;; If positive, then we can possibly wait to draft based on how many moves
-      ;; until our next pick.
-      (if (<= (util/gen-next-draft-spot) (:adp top-athlete))
-        ;; We can wait, so look for next best athlete (unless it is last athlete).
-        (if (= (count athletes) 1) top-athlete (recur (rest athletes)))
-        ;; We can't wait, so return the top 3 athletes.
-        (take 3 athletes))
-      ;; If negative, then this player should have been drafted already. TAKE HIM!!
-      (take 3 athletes))))
+  second best athlete available." [aths]
+  (loop [athletes aths]
+    (let [top-athlete (first athletes)
+          moves (count moves-made)]
+      (if (pos? (- (:adp top-athlete) moves))
+        ;; If positive, then we can possibly wait to draft based on how many moves
+        ;; until our next pick.
+        (if (<= (util/gen-next-draft-spot) (:adp top-athlete))
+          ;; We can wait, so look for next best athlete (unless it is last athlete).
+          (if (= (count athletes) 1) (take 3 aths) (recur (rest athletes)))
+          ;; We can't wait, so return the top 3 athletes.
+          (take 3 athletes))
+        ;; If negative, then this player should have been drafted already. TAKE HIM!!
+        (take 3 athletes)))))
