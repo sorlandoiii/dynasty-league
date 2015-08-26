@@ -38,6 +38,10 @@
    "K" pk-codec})
    ;; "DF" df-codec})
 
+;;; File path
+
+(def ingest-files "./resources/ingest-files/")
+
 ;;; Settings
 
 (def cur-settings (atom nil))

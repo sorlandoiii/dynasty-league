@@ -16,7 +16,8 @@
 
 (def ignored
   ["kelvin benjamin"
-   "arian foster"])
+   "arian foster"
+   "jordy nelson"])
 
 ;;; ADPs
 

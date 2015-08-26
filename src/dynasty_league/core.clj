@@ -51,3 +51,16 @@
           (if (nil? pos) $ (filter #(= (:position %) (first pos)) $))
           (adp-vs-spot $)
           (pprint/pprint $))))
+
+(defn dynasty-overall
+  "" [& pos]
+  (let [_ (config/update-cur-settings config/dynasty-settings)
+        athletes (create-all-athlete-data config/master-athlete-codec)
+        bases (base-aths (group-by :position all-athletes))]
+    (as-> (apply-moves-made all-athletes) $
+          (ignore-athletes $)
+          (group-by :position $)
+          (gen-all-ratings bases $)
+          (if (nil? pos) $ (filter #(= (:position %) (first pos)) $))
+          (reverse (sort-by :proj-pts $))
+          (pprint/pprint (take 10 $)))))

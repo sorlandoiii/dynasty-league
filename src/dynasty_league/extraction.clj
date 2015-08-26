@@ -75,7 +75,7 @@
 (defn load-spreadsheet
   "Loads excel spreadsheets using docjure."
   [file codec]
-  (->> ["/Users/sorlandoiii/dynasty-league/resources/ingest-files/" file ".xls"]
+  (->> [config/ingest-files file ".xls"]
        (clojure.string/join)
        (xls/load-workbook)
        (xls/select-sheet "Sheet1")
