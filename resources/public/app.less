@@ -1,0 +1,276 @@
+@import "bower_components/bootstrap/less/bootstrap.less";
+//@import "bower_components/bootstrap/less/theme.less";
+@import "bower_components/font-awesome/less/font-awesome.less";
+@fa-font-path: "bower_components/font-awesome/fonts";
+@icon-font-path: "bower_components/bootstrap/fonts/";
+
+/* Required for Angular UI Bootstrap */
+.nav, .pagination, .carousel a { cursor: pointer; }
+
+/* Personal preference for BS modal.  The LESS below makes the backdrop white and
+   causes the modal to fade in rather than slide in. */
+//@modal-backdrop-bg: white;
+//.modal {
+//  &.fade {
+//    .transition(opacity .3s);
+//  }
+//  &.fade .modal-dialog {
+//    .translate(0,0);
+//  }
+//}
+
+html {
+  overflow-y: scroll;
+}
+
+.ircop-content {
+  margin-top: 75px;
+}
+
+.ircop-content-body {
+  padding-top: 20px;
+}
+
+
+.well-xs {
+  padding-left:9px;
+  padding-top:3px;
+  padding-bottom:3px;
+  padding-right:9px;
+}
+
+.fixed-top {
+  position: fixed;
+  top: 0;
+}
+
+.fixed-bottom {
+  position: fixed;
+  bottom: 0;
+}
+
+.label.label-inverse {
+  background-color:#333;
+  color:#fff;
+}
+
+.ircop-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 12px;
+  margin: 0;
+  padding: 6px 20px;
+  background-color: #ddd;
+  z-index: 1011; /* Bootstrap popovers have 1010 z-index by default. */
+}
+
+.ircop-notifications {
+  margin-top: 50px;
+}
+
+#ircop-splash {
+  position:absolute;
+  left:0px;
+  right:0px;
+  bottom:0px;
+  top:0px;
+  text-align:center;
+  padding-top:150px;
+}
+
+#ircop-splash .progress {
+  width:300px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.form-item-bottom {
+    margin-bottom: 10px;
+}
+
+.dashboard-tab-container {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.hoverable-clickable:hover {
+  background-color:#E1F3FC;
+  cursor:pointer;
+}
+
+.hoverable-clickable .link {
+  color: #428bca;
+}
+
+.ng-table-pager {
+  overflow: hidden;
+}
+
+/* BEGIN Data Tables for Bootstrap - Should we move this into the lib folder? It's not a drop in replace, it's custom work. */
+div.dataTables_length label {
+  float: left;
+  text-align: left;
+  line-height:28px;
+}
+
+div.dataTables_length select {
+    width: 75px;
+}
+
+div.dataTables_filter label {
+    float: right;
+}
+
+div.dataTables_info {
+    padding-top: 8px;
+}
+
+div.dataTables_paginate {
+    float: right;
+    margin: 0;
+}
+
+table {
+    margin: 0;
+    clear: both;
+}
+
+.table-top-bar{
+  margin-top:10px;
+}
+
+.dashboard-table-controls {
+  margin-bottom: 4px;
+}
+
+.dataTable .header{cursor:pointer;}
+.dataTable .header:after {
+content:"";float:right;margin-top:7px;border-width:0 4px 4px;border-style:solid;border-color:#000 transparent;visibility:hidden;
+}
+
+table .headerSortUp,table .headerSortDown
+{background-color:rgba(141, 192, 219, 0.25);text-shadow:0 1px 1px rgba(255, 255, 255, 0.75);}
+
+.dataTable .header:hover:after{visibility:visible;}
+
+table .headerSortDown:after,table .headerSortDown:hover:after{visibility:visible;filter:alpha(opacity=60);-khtml-opacity:0.6;-moz-opacity:0.6;opacity:0.6;}
+
+table .headerSortUp:after
+{border-bottom:none;border-left:4px solid transparent;border-right:4px solid transparent;border-top:4px solid #000;visibility:visible;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;filter:alpha(opacity=60);-khtml-opacity:0.6;-moz-opacity:0.6;opacity:0.6;}
+
+table .blue{color:#049cdb;border-bottom-color:#049cdb;}
+table .headerSortUp.blue,table .headerSortDown.blue{background-color:#ade6fe;}
+table .green{color:#46a546;border-bottom-color:#46a546;}
+table .headerSortUp.green,table .headerSortDown.green{background-color:#cdeacd;}
+table .red{color:#9d261d;border-bottom-color:#9d261d;}
+table .headerSortUp.red,table .headerSortDown.red{background-color:#f4c8c5;}
+table .yellow{color:#ffc40d;border-bottom-color:#ffc40d;}
+table .headerSortUp.yellow,table .headerSortDown.yellow{background-color:#fff6d9;}
+table .orange{color:#f89406;border-bottom-color:#f89406;}
+table .headerSortUp.orange,table .headerSortDown.orange{background-color:#fee9cc;}
+table .purple{color:#7a43b6;border-bottom-color:#7a43b6;}
+table .headerSortUp.purple,table .headerSortDown.purple{background-color:#e2d5f0;}
+
+.table-grouping-row {
+    padding: 5px 5px 5px 8px !important;
+    background-color: #eee;
+    color: #666;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.center-cell {
+    text-align: center !important;
+}
+
+.selectable-cell {
+  cursor: pointer;
+}
+
+.error-cell {
+    background-color: #f2dede !important;
+}
+
+.warning-cell {
+    background-color: #fcf8e3 !important;
+}
+
+.near-success-cell {
+  background-color: #f3fdef !important;
+}
+
+.success-cell {
+  background-color: #c1d8b5 !important;
+}
+
+.dataTables_filter input, .dataTables_length select {
+  margin-bottom: 2px;
+}
+
+/* END Data Tables for Bootstrap */
+
+input.text_filter {
+  width:90%;
+}
+
+.margin-right-10 {
+  margin-right:10px;
+}
+.nav-tabs {
+  margin-bottom:20px;
+}
+
+.nav-tabs > .active > a,
+.nav-tabs > .active > a:hover {
+  background-color: #F7F7F7;
+}
+
+.bold{
+    font-weight   : bold;
+}
+.cursor-pointer{
+  cursor: pointer;
+}
+.hide-overflow {
+    overflow:hidden;
+}
+
+.unit-decal {
+    width:48px;
+    height:48px;
+}
+
+.unit-decal-sm {
+  width:32px;
+  height:32px;
+}
+
+
+/* Styles for ng-table */
+.ng-table > thead > tr > th {
+  text-align:left;
+}
+
+.hide-table-controls .ng-table-pager,
+.hygiene-slide.slide-alternate .hide-table-controls .ng-table-pager {
+  display:none;
+}
+
+.ng-table-group {
+  background-color:#eee;
+  font-weight:bold;
+  color:#666;
+}
+
+.ng-table-row:nth-child(odd) {
+  nonono-background-color:rgba(226, 228, 255, 0.43);
+}
+
+body div.timeline-event-range {
+  min-width:80px;
+}
+
+/* Component LESS */
+@import "partial/home/home.less";
+/* Add Component LESS Above */

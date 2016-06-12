@@ -9,7 +9,7 @@
   :main ^:skip-aot dynasty-league.core
   :repl-options {:init-ns user}
   :target-path "target/%s"
-  :plugins [[cider/cider-nrepl "0.8.1"]]
+  :plugins [[cider/cider-nrepl "0.9.1"]]
   :profiles {:dev {:resource-paths ["dev"]
                    :dependencies [[javax.servlet/servlet-api "2.5"]
                                   [org.clojure/tools.namespace "0.2.10"]

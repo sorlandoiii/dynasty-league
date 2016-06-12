@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>toastr testing</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link href="bin/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="toastr.css" rel="stylesheet"/>
+    <style>
+        .row {
+            margin-left: 0;
+        }
+    </style>
+</head>
+
+<body class="container">
+<section class="row">
+    <h1>Testing Toastr</h1>
+    <div class="col-lg-12">
+
+    <div class="row">
+
+        <div class="col-lg-12">
+            <button type="button" class="btn btn-info" onClick="notifyInfo()">Info Toast</button>
+            <button type="button" class="btn btn-danger" onclick="notifyError()">Error Toasts</button>
+        </div>
+    </div>
+    <div class="row">
+        <h2>Click any of the icons to have them display for the 'Info Toast' button</h2>
+        <h5>* font-awesome required to use this demo page.</h5>
+        <span class="col-lg-2"><i onclick="setIcon('fa-adjust')" style="cursor: pointer" class="fa fa-5x fa-adjust"></i></span>
+        <span class="col-md-2"><i onclick="setIcon('fa-camera')" style="cursor: pointer" class="fa fa-5x fa-camera"></i></span>
+        <span class="col-md-2"><i onclick="setIcon('fa-check')" style="cursor: pointer" class="fa fa-5x fa-check"></i></span>
+        <span class="col-md-2"><i onclick="setIcon('fa-code-fork')" style="cursor: pointer" class="fa fa-5x fa-code-fork"></i></span>
+        <span class="col-md-2"><i onclick="setIcon('fa-copyright')" style="cursor: pointer" class="fa fa-5x fa-copyright"></i></span>
+        <span class="col-md-2"><i onclick="setIcon('fa-exclamation-circle')" style="cursor: pointer" class="fa fa-5x fa-exclamation-circle"></i></span>
+        <span class="col-md-2"><i onclick="setIcon('fa-users')" style="cursor: pointer" class="fa fa-5x fa-users"></i></span>
+    </div>
+    </div>
+</section>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="toastr.js"></script>
+
+<script type="text/javascript">
+
+    var icon = "fa-cogs";
+
+    <!-- toastr.config.info = { 'timeOut' :  2000, -->
+    <!--              'extendedTimeOut' : 2000, -->
+    <!--              'tapToDismiss' : true, -->
+    <!--              'closeButton' : false, -->
+    <!--              'positionClass' : "toast-top-right", -->
+    <!--              'icon' : "fa fa-2x fa-users"}; -->
+
+    <!-- toastr.config.error = { 'timeOut' :  0, -->
+    <!--          'extendedTimeOut' : 0, -->
+    <!--          'tapToDismiss' : false, -->
+    <!--          'closeButton' : true, -->
+    <!--          'positionClass' : "toast-top-left", -->
+    <!--          'icon': "fa fa-2x fa-exclamation-circle"}; -->
+
+    function setIcon(name){
+        icon = name;
+    }
+    function notifyInfo() {
+        var options = {
+            icon: 'fa fa-2x ' + icon
+        };
+        toastr.info("This is an info toast.");
+    }
+    function notifyError() {
+        toastr.error("This is an error toast. This one will be longer than normal though to see how lengthy comments look.");
+    }
+</script>
+</body>
+</html>
