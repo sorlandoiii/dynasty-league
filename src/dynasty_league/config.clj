@@ -40,7 +40,7 @@
 
 ;;; File path
 
-(def ingest-files "./resources/ingest-files/")
+(def ingest-files "./resources/ingest-files/2015/FantasyPros_Fantasy_Football_Rankings_")
 
 ;;; Settings
 

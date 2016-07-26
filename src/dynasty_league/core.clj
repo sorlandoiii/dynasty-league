@@ -23,7 +23,10 @@
 ;;; League specific functions for picking best player
 
 (defn dynasty-pick
-  "Runs the process e2e and produces the best player at the end." [& pos]
+  "Runs the process e2e and produces the top 3 best players based on a dynasty
+   format league. Passing a position to the function will return solely that
+   position."
+  [& pos]
   (let [_ (config/update-cur-settings config/dynasty-settings)
         athletes (create-all-athlete-data config/master-athlete-codec)
         bases (base-aths (group-by :position all-athletes))]
@@ -38,7 +41,10 @@
           (pprint/pprint $))))
 
 (defn tppr-pick
-  "Runs the process e2e and produces the best player at the end." [& pos]
+  "Runs the process e2e and produces the top 3 best players based on a 12 man
+   ppr format league. Passing a position to the function will return solely
+   that position."
+  [& pos]
   (let [_ (config/update-cur-settings config/twelve-ppr-settings)
         athletes (create-all-athlete-data config/master-athlete-codec)
         bases (base-aths (group-by :position all-athletes))]
@@ -53,7 +59,10 @@
           (pprint/pprint $))))
 
 (defn dynasty-overall
-  "" [& pos]
+  "Runs the process e2e and produces the top 10 players sorted by points based
+   on a dynasty format league. Passing a position to the function will return
+   solely that position."
+  [& pos]
   (let [_ (config/update-cur-settings config/dynasty-settings)
         athletes (create-all-athlete-data config/master-athlete-codec)
         bases (base-aths (group-by :position all-athletes))]

@@ -85,7 +85,7 @@
        (vals)
        (flatten)))
 
-;;; Changes and rankings of :vor for all athletes
+;;; Changes the rankings of :vor for all athletes
 
 (defn modify-vor
   "Modifies vor values based on how many of each position is already on my team."

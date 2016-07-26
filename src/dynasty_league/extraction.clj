@@ -62,6 +62,7 @@
                              (* (:fumbs te) (:fumb stngs)))))))
 
 ;; Can get more in depth here if need be.
+
 (defn gen-pk-proj-pts
   "Generates projected fantasy points for all K based on league settings."
   [pks]
@@ -89,9 +90,7 @@
   (fn [file codec] file))
 
 (defmethod clean-athlete-data "QB" [file codec]
-  (as-> ["FantasyPros_Fantasy_Football_Rankings_" file] $
-        (clojure.string/join $)
-        (load-spreadsheet $ codec)
+  (as-> (load-spreadsheet file codec) $
         (map #(assoc % :position file) $)
         (add-adp $)
         (util/convert-vals $ #{:pass-yds :pass-tds :pass-atts :comps
@@ -99,44 +98,34 @@
         (gen-qb-proj-pts $)))
 
 (defmethod clean-athlete-data "RB" [file codec]
-  (as-> ["FantasyPros_Fantasy_Football_Rankings_" file] $
-        (clojure.string/join $)
-        (load-spreadsheet $ codec)
+  (as-> (load-spreadsheet file codec) $
         (map #(assoc % :position file) $)
         (add-adp $)
         (util/convert-vals $ #{:rush-yds :rush-tds :fumbs :rec-yds :rec-tds :recs})
         (gen-rb-proj-pts $)))
 
 (defmethod clean-athlete-data "WR" [file codec]
-  (as-> ["FantasyPros_Fantasy_Football_Rankings_" file] $
-        (clojure.string/join $)
-        (load-spreadsheet $ codec)
+  (as-> (load-spreadsheet file codec) $
         (map #(assoc % :position file) $)
         (add-adp $)
         (util/convert-vals $ #{:rush-yds :rush-tds :fumbs :rec-yds :rec-tds :recs})
         (gen-wr-proj-pts $)))
 
 (defmethod clean-athlete-data "TE" [file codec]
-  (as-> ["FantasyPros_Fantasy_Football_Rankings_" file] $
-        (clojure.string/join $)
-        (load-spreadsheet $ codec)
+  (as-> (load-spreadsheet file codec) $
         (map #(assoc % :position file) $)
         (add-adp $)
         (util/convert-vals $ #{:fumbs :rec-yds :rec-tds :recs})
         (gen-te-proj-pts $)))
 
 (defmethod clean-athlete-data "K" [file codec]
-  (as-> ["FantasyPros_Fantasy_Football_Rankings_" file] $
-        (clojure.string/join $)
-        (load-spreadsheet $ codec)
+  (as-> (load-spreadsheet file codec) $
         (map #(assoc % :position file) $)
         (add-adp $)
         (util/convert-vals $ #{:fgm :fga :xpm})
         (gen-pk-proj-pts $)))
 
 (defmethod clean-athlete-data "DF" [file codec]
-  (as-> ["FantasyPros_Fantasy_Football_Rankings_" file] $
-        (clojure.string/join $)
-        (load-spreadsheet $ codec)
+  (as-> (load-spreadsheet file codec) $
         (map #(assoc % :position file) $)))
         ;; (convert-vals $ #{:pass-yds :pass-tds :ints :rush-yds :rush-tds :fumbs})))
