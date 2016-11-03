@@ -1,32 +1,6 @@
 # dynasty-league
 
-FIXME: description
-
-## Installation
-
-Download from http://example.com/FIXME.
-
-## Usage
-
-FIXME: explanation
-
-    $ java -jar dynasty-league-0.1.0-standalone.jar [args]
-
-## Options
-
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
+Dynasty-league is a small side project meant for helping me during my fantasy football drafts each year. It's main purpose is to be run from a Clojure REPL in Emacs, but the end goal is to have a front-end in JavaScript (using AngularJS) and a back-end in SQL or MongoDB. The front-end is currently just starting to be built out.
 
 ## License
 
