@@ -118,7 +118,8 @@
       (if (pos? (- (:adp top-athlete) moves))
         ;; If positive, then we can possibly wait to draft based on how many moves
         ;; until our next pick.
-        (if (<= (util/gen-next-draft-spot) (:adp top-athlete))
+        (if (<= (util/gen-next-draft-spot (:teams (@config/cur-settings :general-settings)))
+                (:adp top-athlete))
           ;; We can wait, so look for next best athlete (unless it is last athlete).
           (if (= (count athletes) 1) (take 3 aths) (recur (rest athletes)))
           ;; We can't wait, so return the top 3 athletes.

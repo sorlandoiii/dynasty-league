@@ -44,7 +44,7 @@
 
 ;;; Settings
 
-(def cur-settings (atom nil))
+(declare cur-settings)
 
 (defn update-cur-settings
   "Updates the cur-settings object with the config data from the
@@ -195,3 +195,5 @@
                    :k 1}
                    ;:def 1
    :adps data/tppr-adps})
+
+(def cur-settings (atom dynasty-settings))
